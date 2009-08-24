@@ -24,7 +24,7 @@ for my $image (@ARGV) {
           "Content-Type" => "form-data",
           "Content"      => [ "mode" => "file",
                               "client" => "WaffleLinuxUpload (Polsy) 0.9",
-                              "file" => ["$image"],
+                              "file" => [$image],
                             ]);
   # Use XML upload mode
   $req->header("Accept" => "text/xml");
