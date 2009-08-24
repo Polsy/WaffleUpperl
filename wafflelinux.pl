@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 # Linux WaffleImages uploader client
 # Requires that the perl LWP module be installed.
