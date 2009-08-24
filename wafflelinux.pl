@@ -6,10 +6,10 @@
 use LWP;
 use HTTP::Request::Common;
 
-$ua = LWP::UserAgent->new;
+my $ua = LWP::UserAgent->new;
 
 for(@ARGV) {
-  $sz = (-s);
+  my $sz = (-s);
   if($sz > 1048576) {
     print "Images have a maximum allowable size of 1024KB\n";
     exit;
@@ -20,7 +20,7 @@ for(@ARGV) {
   close(F);
 
   # Create HTTP request for file
-  $req = POST("http://waffleimages.com/upload",
+  my $req = POST("http://waffleimages.com/upload",
           "Content-Type" => "form-data",
           "Content"      => [ "mode" => "file",
                               "client" => "WaffleLinuxUpload (Polsy) 0.9",
@@ -30,18 +30,21 @@ for(@ARGV) {
   $req->header("Accept" => "text/xml");
 
   # Make request
-  $resp = $ua->request($req);
+  my $resp = $ua->request($req);
 
   print " $_\n";
+
+  my $iURL = "";
+  my $tURL = "";
+  my $upErr = "";
 
   # Failed?
   if(! $resp->is_success) {
     print "Upload failed, error: ", $resp->status_line, "\n";
   } else {
     # Pick the interesting bits out of the XML
-    @rLines = split(/\n/, $resp->as_string);
+    my @rLines = split(/\n/, $resp->as_string);
 
-    $iURL = ""; $tURL = ""; $upErr = "";
     for (@rLines) {
       if(/<err/) { ($upErr) = m#<err type="([^"]+)"/>#; }
       if(/<imageurl/) { ($iURL) = m#<imageurl>([^<]+)</imageurl>#; }
