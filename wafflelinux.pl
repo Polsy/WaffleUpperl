@@ -10,22 +10,22 @@ use HTTP::Request::Common;
 
 my $ua = LWP::UserAgent->new;
 
-for(@ARGV) {
-  my $sz = (-s);
+for my $image (@ARGV) {
+  my $sz = (-s $image);
   if($sz > 1048576) {
     print "Images have a maximum allowable size of 1024KB\n";
     exit;
   }
 
   # Check file can be opened ok
-  -r $_ || die "Couldn't open $_: $!";
+  -r $image || die "Couldn't open $image: $!";
 
   # Create HTTP request for file
   my $req = POST("http://waffleimages.com/upload",
           "Content-Type" => "form-data",
           "Content"      => [ "mode" => "file",
                               "client" => "WaffleLinuxUpload (Polsy) 0.9",
-                              "file" => ["$_"],
+                              "file" => ["$image"],
                             ]);
   # Use XML upload mode
   $req->header("Accept" => "text/xml");
@@ -33,7 +33,7 @@ for(@ARGV) {
   # Make request
   my $resp = $ua->request($req);
 
-  print " $_\n";
+  print " $image\n";
 
   my $iURL = "";
   my $tURL = "";
