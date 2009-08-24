@@ -34,10 +34,6 @@ for my $image (@ARGV) {
 
   print " $image\n";
 
-  my $iURL = "";
-  my $tURL = "";
-  my $upErr = "";
-
   # Failed?
   if(! $resp->is_success) {
     print "Upload failed, error: ", $resp->status_line, "\n";
@@ -46,13 +42,17 @@ for my $image (@ARGV) {
     my @rLines = split(/\n/, $resp->as_string);
 
     for (@rLines) {
-      if (m#<err type="([^"]+)"/>#)        { $upErr = $1 }
-      if (m#<imageurl>([^<]+)</imageurl>#) { $iURL  = $1 }
-      if (m#<thumburl>([^<]+)</thumburl>#) { $tURL  = $1 }
+      if (m#<err type="([^"]+)"/>#) {
+        print "  Uploading error: $1\n";
+      }
+
+      if (m#<imageurl>([^<]+)</imageurl>#) {
+        print "[img]$1", "[/img]\n";
+      }
+
+      if (m#<thumburl>([^<]+)</thumburl>#) {
+        print "[timg]$tURL", "[/timg]\n";
+      }
     }
   }
-
-  if($upErr) { print "  Uploading error: $upErr\n"; }
-  print "[img]$iURL", "[/img]\n";
-  if($tURL) { print "[timg]$tURL", "[/timg]\n"; }
 }
