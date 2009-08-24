@@ -12,7 +12,7 @@ my $ua = LWP::UserAgent->new;
 
 for my $image (@ARGV) {
   my $sz = (-s $image);
-  if($sz > 1048576) {
+  if($sz > 1024*1024) {
     die "Images have a maximum allowable size of 1024KB\n";
   }
 
