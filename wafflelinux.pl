@@ -13,8 +13,7 @@ my $ua = LWP::UserAgent->new;
 for my $image (@ARGV) {
   my $sz = (-s $image);
   if($sz > 1048576) {
-    print "Images have a maximum allowable size of 1024KB\n";
-    exit;
+    die "Images have a maximum allowable size of 1024KB\n";
   }
 
   # Check file can be opened ok
