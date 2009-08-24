@@ -36,7 +36,7 @@ for my $image (@ARGV) {
 
   # Failed?
   if(! $resp->is_success) {
-    print "Upload failed, error: ", $resp->status_line, "\n";
+    warn "Upload failed, error: ", $resp->status_line, "\n";
     next;
   }
 
@@ -45,7 +45,7 @@ for my $image (@ARGV) {
 
   for (@rLines) {
     if (m#<err type="([^"]+)"/>#) {
-      print "  Uploading error: $1\n";
+      warn "  Uploading error: $1\n";
     }
 
     if (m#<imageurl>([^<]+)</imageurl>#) {
