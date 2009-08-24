@@ -47,11 +47,11 @@ for my $image (@ARGV) {
     }
 
     if (m#<imageurl>([^<]+)</imageurl>#) {
-      print "[img]$1", "[/img]\n";
+      print "[img]", $1, "[/img]\n";
     }
 
     if (m#<thumburl>([^<]+)</thumburl>#) {
-      print "[timg]$tURL", "[/timg]\n";
+      print "[timg]", $tURL, "[/timg]\n";
     }
   }
 }
