@@ -41,9 +41,7 @@ for my $image (@ARGV) {
   }
 
   # Pick the interesting bits out of the XML
-  my @rLines = split(/\n/, $resp->as_string);
-
-  for (@rLines) {
+  for (split /\n/, $resp->as_string) {
     if (m#<err type="([^"]+)"/>#) {
       warn "  Uploading error: $1\n";
     }
