@@ -46,9 +46,9 @@ for my $image (@ARGV) {
     my @rLines = split(/\n/, $resp->as_string);
 
     for (@rLines) {
-      if(/<err/) { ($upErr) = m#<err type="([^"]+)"/>#; }
-      if(/<imageurl/) { ($iURL) = m#<imageurl>([^<]+)</imageurl>#; }
-      if(/<thumburl/) { ($tURL) = m#<thumburl>([^<]+)</thumburl>#; }
+      if (m#<err type="([^"]+)"/>#)        { $upErr = $1 }
+      if (m#<imageurl>([^<]+)</imageurl>#) { $iURL  = $1 }
+      if (m#<thumburl>([^<]+)</thumburl>#) { $tURL  = $1 }
     }
   }
 
