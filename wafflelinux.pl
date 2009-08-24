@@ -18,8 +18,7 @@ for(@ARGV) {
   }
 
   # Check file can be opened ok
-  open(F, "<$_") || die "Couldn't open $_: $!";
-  close(F);
+  -r $_ || die "Couldn't open $_: $!";
 
   # Create HTTP request for file
   my $req = POST("http://waffleimages.com/upload",
