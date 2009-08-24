@@ -37,22 +37,23 @@ for my $image (@ARGV) {
   # Failed?
   if(! $resp->is_success) {
     print "Upload failed, error: ", $resp->status_line, "\n";
-  } else {
-    # Pick the interesting bits out of the XML
-    my @rLines = split(/\n/, $resp->as_string);
+    next;
+  }
 
-    for (@rLines) {
-      if (m#<err type="([^"]+)"/>#) {
-        print "  Uploading error: $1\n";
-      }
+  # Pick the interesting bits out of the XML
+  my @rLines = split(/\n/, $resp->as_string);
 
-      if (m#<imageurl>([^<]+)</imageurl>#) {
-        print "[img]$1", "[/img]\n";
-      }
+  for (@rLines) {
+    if (m#<err type="([^"]+)"/>#) {
+      print "  Uploading error: $1\n";
+    }
 
-      if (m#<thumburl>([^<]+)</thumburl>#) {
-        print "[timg]$tURL", "[/timg]\n";
-      }
+    if (m#<imageurl>([^<]+)</imageurl>#) {
+      print "[img]$1", "[/img]\n";
+    }
+
+    if (m#<thumburl>([^<]+)</thumburl>#) {
+      print "[timg]$tURL", "[/timg]\n";
     }
   }
 }
