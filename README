@@ -1,3 +1,9 @@
-WaffleImages uploader for Linux/whatever
+WaffleImages uploader perl script
+
+Usable on whichever perl-supporting OS you enjoy, but aimed at non-Windows
+platforms where RightLoad and other such applications do not exist.
 
 Syntax: wafflelinux.pl [imageFile]... 
+
+Running the script as above will produce a list of BBcode [img] tags
+containing the WaffleImages URL for each image that supplied.

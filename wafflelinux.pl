@@ -51,7 +51,7 @@ for my $image (@ARGV) {
     }
 
     if (m#<thumburl>([^<]+)</thumburl>#) {
-      print "[timg]", $tURL, "[/timg]\n";
+      print "[timg]", $1, "[/timg]\n";
     }
   }
 }
