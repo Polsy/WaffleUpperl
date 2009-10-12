@@ -12,7 +12,7 @@ my $ua = LWP::UserAgent->new;
 
 for my $image (@ARGV) {
   my $sz = (-s $image);
-  if($sz > 1024*1024) {
+  if($sz && $sz > 1024*1024) {
     die "Images have a maximum allowable size of 1024KB\n";
   }
 
@@ -41,7 +41,7 @@ for my $image (@ARGV) {
   }
 
   # Pick the interesting bits out of the XML
-  for (split /\n/, $resp->as_string) {
+  for (split /\n/, $resp->content) {
     if (m#<err type="([^"]+)"/>#) {
       warn "  Uploading error: $1\n";
     }
